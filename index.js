@@ -22,7 +22,7 @@ app.use('/api', apiRouter);
 app.use('/callback', callbackRouter);
 
 app.use(function(err, req, res, next) {
-  logger.log({ event: 'unhandled error', data: err });
+  logger.err({ event: 'unhandled error', data: err });
   res.status(500).json({ error: true, message: err.message });
 });
 
