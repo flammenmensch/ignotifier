@@ -1,0 +1,19 @@
+{
+  "name": "instagram-notifier-server",
+  "version": "0.1.0",
+  "description": "Server for instagram notifier application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Flammenmensch <maleventum@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "express": "^4.12.4",
+    "method-override": "^2.3.3",
+    "request": "^2.55.0",
+    "ws": "^0.7.2"
+  }
+}
