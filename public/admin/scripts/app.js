@@ -14,11 +14,11 @@ app.factory('SubscriptionService', function($http) {
   }
 
   function unsubscribe(id) {
-    return $http.delete('/api/subscription', { id: id });
+    return $http.delete('/api/subscription/' + id);
   }
 
   function clear() {
-    return $http.post('/api/subscription/removeall');
+    return $http.delete('/api/subscription/');
   }
 
   return {
