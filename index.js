@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var WebSocketServer = require('ws').Server;
 
+var logger = require('./lib/logger');
 var config = require('./lib/config');
 var apiRouter = require('./lib/routes/api');
 var callbackRouter = require('./lib/routes/callback');
@@ -21,6 +22,7 @@ app.use('/api', apiRouter);
 app.use('/callback', callbackRouter);
 
 app.use(function(err, req, res, next) {
+  logger.log({ event: 'unhandled error', data: err });
   res.status(500).json({ error: true, message: err.message });
 });
 
