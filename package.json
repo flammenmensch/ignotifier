@@ -1,8 +1,14 @@
 {
   "name": "instagram-notifier-server",
   "version": "0.1.0",
-  "description": "Server for instagram notifier application",
-  "repository": "https://github.com/flammenmensch/ignotifier.git",
+  "description": "Server for Instagram notifier application",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flammenmensch/ignotifier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/flammenmensch/ignotifier/issues"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node index",
