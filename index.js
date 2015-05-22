@@ -5,12 +5,11 @@ var request = require('request');
 var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-var WebSocketServer = require('ws').Server;
 
 var logger = require('./lib/logger');
 var config = require('./lib/config');
-var apiRouter = require('./lib/routes/api');
-var callbackRouter = require('./lib/routes/callback');
+var routes = require('./lib/routes');
+var socketFactory = require('./lib/socket');
 
 var app = express();
 
@@ -18,8 +17,8 @@ app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
-app.use('/api', apiRouter);
-app.use('/callback', callbackRouter);
+app.use('/api', routes.api);
+app.use('/callback', routes.callback);
 
 app.use(function(err, req, res, next) {
   logger('err', err);
@@ -27,16 +26,12 @@ app.use(function(err, req, res, next) {
 });
 
 var server = http.createServer(app);
-var wss = new WebSocketServer({ server: server });
+var socket = socketFactory(server);
 
-wss.on('connection', function (ws) {
+server.listen(config.port, function(err) {
+  if (err) {
+    return console.error('Could not start server', err);
+  }
 
-
-  ws.on('close', function () {
-    console.log('Client disconnected');
-  });
-});
-
-server.listen(config.port, function() {
-  console.log('Server started');
+  console.info('Server started');
 });
