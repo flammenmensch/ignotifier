@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Subscription manager</title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <h1 class="page-header">Subscription manager</h1>
+  </div>
+
+  <div class="row" ng-controller="SubscriptionListCtrl as slCtrl">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Tags</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="subscription in slCtrl.subscriptions track by subscription.id">
+          <td>{{::subscription.id}}</td>
+          <td><span class="label label-primary">{{::subscription.object_id}}</span></td>
+          <td>
+            <button class="btn btn-danger btn-sm" ng-disabled="slCtrl.busy" ng-click="slCtrl.unsubscribe(subscription.id)">Unsubscribe</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row" ng-controller="FormCtrl as fCtrl">
+    <form class="form-inline">
+      <div class="form-group">
+        <input ng-model="fCtrl.tagName" type="text" class="form-control" placeholder="tag name">
+      </div>
+      <button ng-disabled="fCtrl.busy" class="btn btn-success" ng-click="fCtrl.createSubscription()">Create subscription</button>
+    </form>
+  </div>
+</div>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
+<script src="scripts/app.js"></script>
+</body>
+</html>
