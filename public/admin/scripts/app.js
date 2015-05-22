@@ -21,11 +21,31 @@ app.factory('SubscriptionService', function($http) {
     return $http.delete('/api/subscription/');
   }
 
+  function sendFakeData() {
+    return $http.post('/callback', [
+      {
+        "subscription_id": '1',
+        "object": 'tag',
+        "object_id": 'happygeeks',
+        "changed_aspect": 'media',
+        "time": Date.now()
+      },
+      {
+        "subscription_id": '2',
+        "object": 'tag',
+        "object_id": 'happygeeks',
+        "changed_aspect": 'media',
+        "time": Date.now()
+      }
+    ]);
+  }
+
   return {
     list: list,
     subscribe: subscribe,
     unsubscribe: unsubscribe,
-    clear: clear
+    clear: clear,
+    sendFakeData: sendFakeData
   };
 });
 
@@ -69,6 +89,14 @@ app.controller('FormCtrl', function($rootScope, SubscriptionService) {
 
   this.busy = false;
   this.tagName = '';
+
+  this.sendFakeData = function() {
+    self.busy = true;
+
+    SubscriptionService.sendFakeData().finally(function() {
+      self.busy = false;
+    });
+  };
 
   this.createSubscription = function() {
     self.busy = true;
